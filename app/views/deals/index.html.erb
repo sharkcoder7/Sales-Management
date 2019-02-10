@@ -1,0 +1,11 @@
+<% if params[:item_id] %>
+  <h1><strong><%= @item.name %></h1></strong>
+  <p><strong>Retail Price:<%= number_to_currency(@item.price) %></p></strong>
+  <% @deals.each do |deal| %>
+    <li><%= number_to_currency(deal.price) %> - <%= link_to deal.message,   item_deal_path(@item, deal) %></li>
+  <% end %>
+  <% else %>
+    <% @deals.each do |deal| %>
+    <li><%= number_to_currency(deal.price) %> - <%= link_to deal.message,   item_deal_path(deal.item, deal) %></li>
+  <% end %>
+<% end %>

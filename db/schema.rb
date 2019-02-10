@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_01_194324) do
+ActiveRecord::Schema.define(version: 2018_07_30_202422) do
 
   create_table "deals", force: :cascade do |t|
     t.decimal "price", precision: 8, scale: 2
     t.integer "amount"
     t.text "message"
     t.integer "item_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_deals_on_item_id"
+    t.index ["user_id"], name: "index_deals_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -29,16 +31,6 @@ ActiveRecord::Schema.define(version: 2018_08_01_194324) do
     t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "sales", force: :cascade do |t|
-    t.integer "amount"
-    t.integer "deal_id"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["deal_id"], name: "index_sales_on_deal_id"
-    t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

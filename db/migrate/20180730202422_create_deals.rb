@@ -5,7 +5,7 @@ class CreateDeals < ActiveRecord::Migration[5.2]
       t.integer :amount
       t.text :message
       t.belongs_to :item, foreign_key: true
-
+      t.belongs_to :user, foreign_key: true
       t.timestamps
     end
   end

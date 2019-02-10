@@ -1,6 +1,8 @@
-<h1> <%= @deal.message %> </h1> <br>
+<h1> <strong><%= @deal.message %></strong> </h1> <br>
 
-<h2> Item: <%= @deal.item.name %> </h2> <br>
-<h2> Price: <%= number_to_currency(@deal.price) %> </h2> <br>
-
-<h2> Qty: <%= @deal.amount %> </h2>
+<p><strong> Item: </strong><%= @deal.item.name %> </p> <br>
+<p><strong> Description: </strong><%= @deal.item.description %> </p> <br>
+<p><strong> Retail Price: </strong><%= number_to_currency(@deal.item.price) %> </p> <br>
+<p><strong> Deal Price: </strong><%= number_to_currency(@deal.price) %> </p> <br>
+<p><strong> Savings: </strong><%= savings(@deal) %> </p>
+<p><strong> Email for info: </strong><%= @deal.user.email %> </p> <br>

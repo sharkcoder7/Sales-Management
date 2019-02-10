@@ -1,4 +1,13 @@
-<p><strong>Name:</strong> <%= @item.name %></p>
+<h1><strong> <%= @item.name %></strong></h1>
 <p><strong>Description:</strong> <%= @item.description %></p>
 <p><strong>Price:</strong> <%= number_to_currency(@item.price) %></p>
-<p><strong>Catagory:</strong> <%= @item.category %></p>
+<p><strong>Category:</strong> <%= @item.category %></p>
+
+<p><strong> <%= link_to "Deals", item_deals_path(@item) %> </strong></p>
+
+<p><strong> <%= link_to "Create New Deal", new_item_deal_path(@item) %> </strong></p>
+
+
+
+
+

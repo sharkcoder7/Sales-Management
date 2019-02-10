@@ -12,23 +12,19 @@
     <% @items.each do |item| %>
       <tr>
 
-        <td><%= item.name %></td>
-        <td><%= item.price %></td>
-        <% if current_user.admin %>
-          <td><%= link_to "Show #{item.name}", item_path(item) %></td>
-        <% else %>
-          <td><%= link_to "Sales #{item.name}", item_path(item) %></td>
-        <% end %>
+      <td><%= link_to "#{item.name}", item_path(item) %></td>
+        <td><%= item.category %></td>
+        <td><%= item.description %></td>
+        <td><%= number_to_currency(item.price) %></td>
+        <td><strong> <%= link_to "Deals", item_deals_path(item) %> </strong></td>
+        <td><% if current_user.admin %>
+          <%= link_to 'Edit Item', [:edit, item] %> 
+        <% end %><td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
 
-<% if @user %>
-  <p>
-    <%= link_to "Back to profile", user_path(@user), {:class => "btn btn-primary"} %>
-  </p>
-<% else %>
-  <p><%= link_to 'New Item', new_item_path %></p>
-<% end %>
+
+  <p><%= link_to 'Create New Item', new_item_path %></p>

@@ -2,7 +2,7 @@
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
-        <%= pluralize(@user.errors.count, "error") %> prohibited this used from being saved:
+        <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
       </h2>
 
       <ul>
@@ -17,6 +17,12 @@
   <%= f.label :name %>
   <br>
   <%= f.text_field :name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email %>
+  <br>
+  <%= f.text_field :email, class: "form-control" %>
 </div>
 
 <div class="form-group">
