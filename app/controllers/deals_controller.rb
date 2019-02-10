@@ -1,5 +1,6 @@
 class DealsController < ApplicationController
   helper_method :params
+  before_action :set_item, only: [:edit, :update, :destroy, :index]
   require 'pry'
   
   def new
@@ -8,13 +9,11 @@ class DealsController < ApplicationController
   end
 
   def create
-
     @item = Item.find(deal_params[:item_id])
     @deal = Deal.new(deal_params)
-    @deal.item_id = @item.id
     if @deal.valid?
       @deal.save
-      redirect_to item_deal_path(@deal.item_id, @deal)
+      render :json => @deal
     else
       render :new
     end
@@ -30,11 +29,10 @@ class DealsController < ApplicationController
   end
   
   def index
-    if params[:item_id]
-      @item = Item.find(params[:item_id])
-      @deals = @item.deals
-    else
-      @deals = Deal.all
+    @deals = @item.deals
+    respond_to do |format|
+      format.json { render :json => @deals }
+      format.html { render :index }
     end
   end
 
@@ -60,7 +58,14 @@ class DealsController < ApplicationController
     @deals = Deal.fifty
     render "index"
   end
+
+
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
   def deal_params
     params.require(:deal).permit(
       :price,

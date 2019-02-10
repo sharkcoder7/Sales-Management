@@ -13,10 +13,11 @@ Rails.application.routes.draw do
 
   get '/deals/under_fifty', to: 'deals#under_fifty'
   
-  resources :items, only: [:show, :index] do
-    resources :deals, only: [:show, :index, :new]
+  resources :items do
+    resources :deals
   end
 
+  resources :deals
    
 
   resources :deals, only: [:index, :show, :new, :create, :edit, :update]

@@ -1,12 +1,9 @@
 
-<h1><strong> <%= @item.name %></strong></h1>
-<p><strong>Description:</strong> <%= @item.description %></p>
-<p><strong>Price:</strong> <%= number_to_currency(@item.price) %></p>
-<p><strong>Category:</strong> <%= @item.category %></p>
+<h1 class="itemName"><strong> <%= @item.name %></strong></h1>
+<p class="itemDescription"><strong>Description:</strong> <%= @item.description %></p>
+<p class="itemPrice"><strong>Price:</strong> <%= number_to_currency(@item.price) %></p>
+<p class="itemCategory"><strong>Category:</strong> <%= @item.category %></p>
 
-
-
-<p><strong> <%= link_to "Create New Deal", new_item_deal_path(@item) %> </strong></p>
 
 <%= link_to "Load Deals", item_deals_path(@item), class: "load_deals" %>
 
@@ -15,40 +12,74 @@
   </ol>
 </div>
 
+<h2> Create a new deal </h2>
+<%= form_for(@deal) do |f| %>
+
+    <%= f.label :name %><br>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :item_id, :value => @item.id %>
+    <%= f.text_field :name, class: "form control" %>
+  
+    <br><%= f.label :price %><br>
+    <%= f.number_field :price, class: "form control", step: :any %>
+
+    <br><%= f.label :message %><br>
+    <%= f.text_area :message, class: "form control" %><br>
+
+   <%= f.submit %>
+  
+<% end %>
+
+<div id="new_deal_div">
+  <ol>
+  </ol>
+</div>
+
 <script type="text/javascript" charset="utf-8">
-$(function() {
-  $(".js-more").on("click", function() {
-    var id = $(this).data("id");
-    $.get("/deals/" + id + ".json", function(data) {
-      var deal = data;
-      var descriptionText = "<p>" + deal["message"] + "</p>";
-      $("#deal-" + id).html(descriptionText);
+$(function () {
+
+  $("a.load_deals").on("click", function(e) {
+    $.get(this.href).success(function(json){
+      let $deals = $("#deals_div ol")
+      $deals.text('')
+      json.forEach(function(deal){
+        $deals.append('<li>' + deal.name + '-' + deal.user.email + " $" + deal.price + '</li>')
+      });
+    });
+    e.preventDefault();
+  });
+
+  $("form").submit(function(event) {
+    event.preventDefault();
+    var values = $(this).serialize();
+    var posting = $.post('/deals', values);
+    posting.done(function(data) {
+      let deal = new Deal(data)
+      deal.renderLi()
     });
   });
 
-  $("a.load_deals").on("click", function(e){
-    $get(this.href).success(function(json){
-      let $deals = $("#deals_div ol")
-      $deals.text('')
+  function showItem(json){
+    $(".itemName").text(json.name)
+    $(".itemDescription").text(json.description)
+    $("#deals_div ol").empty()
+  
+  };
 
-      json.forEach(function(deal){
-        $deals.append('<li>' + deal.price + '</li>')
-      })
-    })
-    e.preventDefault()
-  })
-
-});
-
-function Deal(attributes){
+  function Deal(attributes){
   this.id = attributes.id
   this.name = attributes.name
   this.user = attributes.user
-  this.price = attribute.price  
-}
+  this.price = attributes.price  
+  };
 
-Deal.prototype.renderLI = function(){
-  let html = '<li>' + this.user.name + 'has a deal for:' + this.price + '</li>'
-  $("#deals_div ol").append(html)
-} 
+  Deal.prototype.renderLi = function(){
+  let html = '<li>' + this.name + 'has a deal for:' + this.price + '</li>'
+  $("#new_deal_div ol").append(html)
+  }; 
+
+    
+});
+
 </script>
+
