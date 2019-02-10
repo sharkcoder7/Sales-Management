@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/items/edit', to: 'items#edit', as: 'edit_item'
   post '/items', to: 'items#create'
   post '/items', to: 'items#update'
+
+  get '/deals/under_fifty', to: 'deals#under_fifty'
   
   resources :items, only: [:show, :index] do
     resources :deals, only: [:show, :index, :new]

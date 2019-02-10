@@ -29,7 +29,6 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         redirect_to user_path(user)
       else
-        auth_hash.key
         render 'new'
       end
     end

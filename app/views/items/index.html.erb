@@ -8,10 +8,8 @@
   </thead>
 
   <tbody>
-
+  <tr>
     <% @items.each do |item| %>
-      <tr>
-
       <td><%= link_to "#{item.name}", item_path(item) %></td>
         <td><%= item.category %></td>
         <td><%= item.description %></td>
@@ -20,7 +18,7 @@
         <td><% if current_user.admin %>
           <%= link_to 'Edit Item', [:edit, item] %> 
         <% end %><td>
-      </tr>
+    </tr>
     <% end %>
   </tbody>
 </table>

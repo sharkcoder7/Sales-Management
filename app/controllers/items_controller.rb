@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
     @items = Item.all
   end
 
-  def posts_index
+  def deals_index
     @item = Item.find(params[:id])
     @deals = @item.deals
     render template:'deals/index'

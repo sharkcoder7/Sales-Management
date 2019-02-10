@@ -1,11 +1,45 @@
+<table class="table">
+  <thead>
+    <tr>
+        <th colspan="3"></th> 
+    </tr>
+  </thead>
+
+  <tbody>
+  
+<% if !params[:user].blank? %>
+  <% @deals = Deal.where(user: params[:user]) %>
+<% end %>
+
+<h1> Deals! <h1>
+
+<%= link_to "Deals Under $50.00", deals_under_fifty_path  %>
+
 <% if params[:item_id] %>
   <h1><strong><%= @item.name %></h1></strong>
-  <p><strong>Retail Price:<%= number_to_currency(@item.price) %></p></strong>
+    <p><strong>Retail Price:<%= number_to_currency(@item.price) %></p></strong>
   <% @deals.each do |deal| %>
-    <li><%= number_to_currency(deal.price) %> - <%= link_to deal.message,   item_deal_path(@item, deal) %></li>
+    <tr>
+    <td><%= number_to_currency(deal.price) %></td>
+    <td><%= link_to deal.message, item_deal_path(@item, deal) %></td>
+    </tr>
   <% end %>
-  <% else %>
-    <% @deals.each do |deal| %>
-    <li><%= number_to_currency(deal.price) %> - <%= link_to deal.message,   item_deal_path(deal.item, deal) %></li>
-  <% end %>
+
+<% else %>
+   <% @deals.each do |deal| %>
+    <%= render partial: "deal", locals: {deal: deal} %>
+   <% end %> 
+
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-more").on('click', function() {
+    var id = $(this).data("id");
+    $.get("/deals/" + id + "/deal_data", function(data) {
+
+      $("#body-" + id).html(data["description"]);
+    });
+  });
+});
+</script>
