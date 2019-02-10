@@ -2,17 +2,11 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-
   end
 
   def create
     @item = Item.create(item_params)
-    if @item.valid?
-      @item.save
-      redirect_to item_path(@item)
-    else
-      render :new
-    end
+    render json: @item, status: 201
   end
 
   def edit
@@ -21,7 +15,6 @@ class ItemsController < ApplicationController
 
   def index 
     @items = Item.all
-    
   end
 
   def deals_index
