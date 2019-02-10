@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   post '/users', to:'users#create'
   get '/users/:id', to: 'users#show', as: 'user'
 
-  get '/signin', to: 'session#new', as: 'signin'
-  post '/session', to: 'session#create', as: 'session'
-  delete '/session/', to: 'session#destroy'
+  get '/signin', to: 'sessions#new', as: 'signin'
+  post '/sessions', to: 'sessions#create', as: 'sessions'
+  delete '/sessions/', to: 'sessions#destroy'
 
   get '/items', to: 'items#index', as: 'items'
   get '/items/new', to: 'items#new', as: 'new_item'
@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   get '/deals/:id', to: 'deals#show', as: 'deal'
 
   root 'static_pages#home'
+
+  get '/auth/facebook/callback', to: 'sessions#create'
 end
