@@ -3,11 +3,24 @@
 <p><strong>Price:</strong> <%= number_to_currency(@item.price) %></p>
 <p><strong>Category:</strong> <%= @item.category %></p>
 
-<p><strong> <%= link_to "Deals", item_deals_path(@item) %> </strong></p>
+   <% @deals.each do |deal| %>
+    <h3><%= link_to deal.name, deal_path(deal) %></h3>
+    <div id="deal-<%= deal.id %>"><%= truncate(deal.message) %></div>
+    <button class="js-more" data-id="<%= deal.id %>">More Info</button>
+  <% end %>
 
 <p><strong> <%= link_to "Create New Deal", new_item_deal_path(@item) %> </strong></p>
 
 
-
-
-
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  $(".js-more").on("click", function() {
+    var id = $(this).data("id");
+    $.get("/deals/" + id + ".json", function(data) {
+      var deal = data;
+      var descriptionText = "<p>" + deal["message"] + "</p>";
+      $("#deal-" + id).html(descriptionText);
+    });
+  });
+});
+</script>

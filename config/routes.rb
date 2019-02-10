@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   resources :users
 
-
+  get '/deals/:id/deal_data', to: 'deals#deal_data'
   get '/signin', to: 'sessions#new', as: 'signin'
 
   get '/items/new', to: 'items#new', as: 'new_item'
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :deals, only: [:show, :index, :new]
   end
 
-
+   
 
   resources :deals, only: [:index, :show, :new, :create, :edit, :update]
 

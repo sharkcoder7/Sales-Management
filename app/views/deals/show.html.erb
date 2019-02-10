@@ -1,9 +1,29 @@
-<h1> <strong><%= @deal.name %></strong> </h1> <br>
+<a href="#" class="js-next" data-id="<%=@deal.id%>">Next Deal</a>
+<h1 class="dealName"> <strong><%= @deal.name %></strong> </h1> <br>
 
-<p><strong> Item: </strong><%= @deal.item.name %> </p> <br>
-<p><strong> Description: </strong><%= @deal.item.description %> </p> <br>
+<p class="itemName"><strong> Item: </strong><%= @deal.item.name %> </p> <br>
+<p class="itemDescription"><strong> Description: </strong><%= @deal.item.description %> </p> <br>
 <p><strong> Retail Price: </strong><%= number_to_currency(@deal.item.price) %> </p> <br>
-<p><strong> Deal Price: </strong><%= number_to_currency(@deal.price) %> </p> <br>
-<p><strong> Savings: </strong><%= savings(@deal) %> </p>
-<p><strong> Info: </strong><%= @deal.message %> </p>
+<p class="dealName"><strong> Deal: </strong><%= @deal.name %> </p> <br>
+<p class="dealPrice"><strong> Deal Price: </strong><%= number_to_currency(@deal.price) %> </p> <br>
+<p class="dealSavings"><strong> Savings: </strong><%= savings(@deal) %> </p>
+<p class="dealMessage"><strong> Info: </strong><%= @deal.message %> </p>
 <p><strong> Email for more info: </strong><%= @deal.user.email %> </p> <br>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function() {
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.get("/deals/" + nextId + ".json", function(data) {
+      
+      var deal = data;
+      $(".dealName").text(deal["name"]);
+      $(".dealPrice").text(deal["price"]);
+      $(".dealMessage").text(deal["message"]);
+      
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
+    });
+  });
+});
+</script>

@@ -24,6 +24,11 @@ class DealsController < ApplicationController
     @deal = Deal.find(params[:id])
   end
 
+  def message
+    deal = Deal.find(params[:id])
+    render plain: deal.message
+  end
+  
   def index
     if params[:item_id]
       @item = Item.find(params[:item_id])
@@ -37,17 +42,18 @@ class DealsController < ApplicationController
     if params[:item_id]
       @item = Item.find(params[:item_id])
       @deal = Deal.find(params[:id])
-
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @deal }
+      end
     else
       @deal = Deal.find(params[:id])
       @item = Item.find(@deal.item_id)
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @deal }
+      end
     end
-  end
-
-  def deal_data
-    deal = Deal.find(params[:id])
-    render json: deal.to_json(only [:name, :message, :price],
-                                    include: [item: { only: [:name]}])
   end
 
   def under_fifty

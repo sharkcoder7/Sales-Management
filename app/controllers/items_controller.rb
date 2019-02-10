@@ -19,8 +19,9 @@ class ItemsController < ApplicationController
     @item = Item.find_by(id: params[:id])
   end
 
-  def index
+  def index 
     @items = Item.all
+    
   end
 
   def deals_index
@@ -31,6 +32,11 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @deals = @item.deals
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @item }
+    end
   end
   
   def update
