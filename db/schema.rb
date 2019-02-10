@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_194324) do
   create_table "deals", force: :cascade do |t|
     t.decimal "price", precision: 8, scale: 2
     t.integer "amount"
-    t.string "message"
+    t.text "message"
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_194324) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "catagory"
+    t.string "category"
     t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

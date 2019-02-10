@@ -3,10 +3,10 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :deals
 
 
-  @@catagories = ['Appliances', 'Electronics', 'Apparel']
+  @@categories = ['Appliances', 'Electronics', 'Apparel']
 
-  def self.catagories
-    @@catagories
+  def self.categories
+    @@categories
   end
 
 

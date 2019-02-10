@@ -1,6 +1,12 @@
 <%= form_for(@deal) do |f| %>
 
   <div class="form-group">
+    <%= f.label :item %><br>
+
+    <%= f.collection_select :item_id, Item.all, :id,:name, prompt: "Select Item" %>
+  </div> 
+
+  <div class="form-group">
     <%= f.label :amount %><br>
     <%= f.number_field :amount, class: "form-control" %>
   </div>
@@ -15,13 +21,8 @@
     <%= f.text_area :message, class: "form control" %>
   </div> 
 
-  <div class="form-group">
-    <%= f.label :item_id %><br>
-
-    <%= collection_select(:item_id, :name, User.all, :name, :name, prompt: "Please select item") %>
-  </div> 
-
-
-
-
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+  
 <% end %>

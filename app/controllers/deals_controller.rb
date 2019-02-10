@@ -26,10 +26,9 @@ class DealsController < ApplicationController
     params.require(:deal).permit(
       :price,
       :amount,
-      :begin,
-      :end,
       :message,
       :item_id
     )
+  end 
 
 end

@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   get '/deals', to: 'deals#index', as: 'deals'
   get '/deals/new', to: 'deals#new', as: 'new_deal'
   post '/deals', to: 'deals#create'
-  get '/deals/id', to: 'deals#show', as: 'deal'
+  get '/deals/:id', to: 'deals#show', as: 'deal'
+
+  root 'static_pages#home'
 end
