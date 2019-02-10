@@ -4,9 +4,11 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.string :name
       t.text :description
       t.string :catagory
-      t.integer :price
+      t.decimal :price, :precision => 8, :scale => 2
 
       t.timestamps
     end
   end
 end
+
+

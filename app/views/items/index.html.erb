@@ -1,0 +1,34 @@
+<h1>All Items</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @items.each do |item| %>
+      <tr>
+
+        <td><%= item.name %></td>
+        <td><%= item.price %></td>
+        <% if current_user.admin %>
+          <td><%= link_to "Show #{item.name}", item_path(item) %></td>
+        <% else %>
+          <td><%= link_to "Sales #{item.name}", item_path(item) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<% if @user %>
+  <p>
+    <%= link_to "Back to profile", user_path(@user), {:class => "btn btn-primary"} %>
+  </p>
+<% else %>
+  <p><%= link_to 'New Item', new_item_path %></p>
+<% end %>
