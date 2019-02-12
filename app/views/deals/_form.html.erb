@@ -1,22 +1,8 @@
 <%= form_for(@deal) do |f| %>
-  <% if @deal.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@deal.errors.count, "error") %> prohibited this deal from being saved:
-      </h2>
-
-      <ul>
-      <% @deal.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="form-group">
     <%= f.label :name %><br>
     <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.hidden_field :item_id %>
+    <%= f.hidden_field :item_id, :value =>  %>
     <%= f.text_field :name, class: "form control" %>
   </div>
 

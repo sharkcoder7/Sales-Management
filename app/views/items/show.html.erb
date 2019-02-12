@@ -12,28 +12,7 @@
   </ol>
 </div>
 
-<h2> Create a new deal </h2>
-<%= form_for(@deal) do |f| %>
-
-    <%= f.label :name %><br>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.hidden_field :item_id, :value => @item.id %>
-    <%= f.text_field :name, class: "form control" %>
-  
-    <br><%= f.label :price %><br>
-    <%= f.number_field :price, class: "form control", step: :any %>
-
-    <br><%= f.label :message %><br>
-    <%= f.text_area :message, class: "form control" %><br>
-
-   <%= f.submit %>
-  
-<% end %>
-
-<div id="new_deal_div">
-  <ol>
-  </ol>
-</div>
+<%= render 'deal' %>
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
@@ -43,7 +22,7 @@ $(function () {
       let $deals = $("#deals_div ol")
       $deals.text('')
       json.forEach(function(deal){
-        $deals.append('<li>' + deal.name + '-' + deal.user.email + " $" + deal.price + '</li>')
+        $deals.append("<li>" + deal.user.name + " has a deal for " + formatter.format(deal.price) + " email: " + deal.user.email + " for more info." + "</li>")
       });
     });
     e.preventDefault();
@@ -74,11 +53,15 @@ $(function () {
   };
 
   Deal.prototype.renderLi = function(){
-  let html = '<li>' + this.name + 'has a deal for:' + this.price + '</li>'
-  $("#new_deal_div ol").append(html)
+  let html = '<li> You just posted a deal for:' + this.price + '</li>'
+  $("#deals_div ol").append(html)
   }; 
 
-    
+  const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2
+  });
 });
 
 </script>
