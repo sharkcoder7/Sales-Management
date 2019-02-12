@@ -4,7 +4,7 @@ $(document).on("turbolinks:load", function () {
       let $deals = $("#deals_div ol")
       $deals.text('')
       json.forEach(function(deal){
-        $deals.append("<li> <a href=/deals/" + deal.id + ">" + deal.item.name + "</a>" + "for sale for" + formatter.format(deal.price) + "</li>")
+        $deals.append("<li> <a href=/deals/" + deal.id + ">" + deal.item.name + "</a>" + " for sale for " + formatter.format(deal.price) + "</li>")
       });
     });
     e.preventDefault();

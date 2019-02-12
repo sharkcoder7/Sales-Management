@@ -1,22 +1,15 @@
 $(document).on("turbolinks:load", function () {
-  $("a.load_deals").on("click", function(e) {
-    $.get(this.href, null, null, 'json').done(function(json){
-      let $deals = $("#deals_div ol")
-      $deals.text('')
-      json.forEach(function(deal){
-        $deals.append("<li> <a href=/deals/" + deal.id + ">" + deal.user.email + "</a>" + " has a deal for " + formatter.format(deal.price) + " email: " + deal.user.email + " for more info." + "</li>")
-      });
-    });
-    e.preventDefault();
-  });
 
   $("form").submit(function(event) {
     event.preventDefault();
     var values = $(this).serialize();
     var posting = $.post('/deals', values);
+    var form = document.getElementById("new_deal");
+    form.reset();
     posting.done(function(data) {
       let deal = new Deal(data)
       deal.renderLi()
+
     });
   });
 
@@ -38,12 +31,30 @@ $(document).on("turbolinks:load", function () {
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;  
     $.get("/items/" + nextId + ".json", function(json){
       $(".js-next").attr("data-id", json["id"]);
+      $(".js-sort").attr("data-id", json["id"]);
       var data = json
+      debugger
       showItem(data)
     })
     
     
   })
+
+  
+  $('.js-sort').on("click", function(e){
+    e.preventDefault();
+    var dataId = $(".js-sort").attr("data-id");  
+    $.get("/items/" + dataId + ".json", function(json){
+
+      json.deals.sort(function (a, b) {
+        return a.price - b.price
+      })
+      showItem(json)
+    })
+    
+    
+  })
+
 
 
   function Deal(attributes){
@@ -55,7 +66,7 @@ $(document).on("turbolinks:load", function () {
 
   Deal.prototype.renderLi = function(){
   let html = '<li> You just posted a deal for ' + formatter.format(this.price) + '</li>'
-  $("#deals_div ol").append(html)
+  $(".itemDeals ul").append(html)
   }; 
 
   const formatter = new Intl.NumberFormat('en-US', {

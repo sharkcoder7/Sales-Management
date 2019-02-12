@@ -7,11 +7,12 @@
 <a href="#" class="js-next" data-id="<%=@item.id%>">Next Item</a><br>
 <br>
 
+<a href="#" class="js-sort" data-id="<%=@item.id%>"> Sort Deals</a><br>
 
 <div class="itemDeals">
   <ul>
   <% @item.deals.each do |deal| %>
-    <li> <%= link_to deal.name, deals_path(deal) %> - <%= number_to_currency(deal.price) %>
+    <li> <%= link_to deal.name, deal_path(deal) %> - <%= number_to_currency(deal.price) %>
     <% end %> 
   </ul>
 </div>

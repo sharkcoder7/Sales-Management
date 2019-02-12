@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app is used to post deals on items for resale .
 
-Things you may want to cover:
+Installation Guide
 
-* Ruby version
+Fork in to directory by typing into terminal: git clone git@github.com:deneb0618/Sales-Management.git
 
-* System dependencies
+Installation Steps
 
-* Configuration
+1. To install required gems: bundle install
+2. To migrate database: rake db:migrate
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This project is licensed under the terms of the MIT license.
+/home/learn/Development/Code/sales_management/LICENSE 
