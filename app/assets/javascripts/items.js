@@ -23,9 +23,28 @@ $(document).on("turbolinks:load", function () {
   function showItem(json){
     $(".itemName").text(json.name)
     $(".itemDescription").text(json.description)
-    $("#deals_div ol").empty()
-  
+    $(".itemPrice").text(formatter.format(json.price))
+    $(".itemCategory").text(json.category)
+
+    let $deals = $('.itemDeals ul')
+    $deals.html('')
+    json.deals.forEach(function(deal){
+      $deals.append("<li> <a href=/deals/" + deal.id + ">" + deal.name + "</a>" + " - " + formatter.format(deal.price) + "</li>")
+    }) 
   };
+
+  $('.js-next').on("click", function(e){
+    e.preventDefault();
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;  
+    $.get("/items/" + nextId + ".json", function(json){
+      $(".js-next").attr("data-id", json["id"]);
+      var data = json
+      showItem(data)
+    })
+    
+    
+  })
+
 
   function Deal(attributes){
   this.id = attributes.id

@@ -1,10 +1,20 @@
+
 <h1 class="itemName"><strong> <%= @item.name %></strong></h1>
-<p class="itemDescription"><strong>Description:</strong> <%= @item.description %></p>
-<p class="itemPrice"><strong>Price:</strong> <%= number_to_currency(@item.price) %></p>
-<p class="itemCategory"><strong>Category:</strong> <%= @item.category %></p>
+<p class="itemDescription"><%= @item.description %></p>
+<p class="itemPrice"> <%= number_to_currency(@item.price) %></p>
+<p class="itemCategory"><%= @item.category %></p>
+
+<a href="#" class="js-next" data-id="<%=@item.id%>">Next Item</a><br>
+<br>
 
 
-<%= link_to "Load Deals", item_deals_path(@item), class: "load_deals" %>
+<div class="itemDeals">
+  <ul>
+  <% @item.deals.each do |deal| %>
+    <li> <%= link_to deal.name, deals_path(deal) %> - <%= number_to_currency(deal.price) %>
+    <% end %> 
+  </ul>
+</div>
 
 <div id="deals_div">
   <ol>
