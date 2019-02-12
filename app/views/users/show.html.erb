@@ -1,6 +1,0 @@
-<h2><strong><%= @user.name %>'s Profile</strong></h2>
-<p><strong> Sales </strong></p>
-<p><% @user.deals.each do |deal| %></p>
-<p><%= link_to "#{deal.message}", deal_path(deal.id) %>
-
-<% end %>
