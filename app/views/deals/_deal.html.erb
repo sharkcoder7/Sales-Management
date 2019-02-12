@@ -1,0 +1,3 @@
+<h1><%= deal.id %>: <%= link_to deal.name, deal_path(deal) %></h2>
+<div id="deal-<%= deal.id %>"><%= truncate(deal.message) %></div>
+<button class="js-more" data-id="<%= deal.id %>">More Info</button>

@@ -1,0 +1,54 @@
+<h1>New Item</h1>
+<%= form_for @item do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:
+      </h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.label :name %>  
+    <%= f.text_field :name %>
+    <br>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <br>
+    <%= f.label :price %>
+    <%= f.number_field :price, step: :any %>
+    <br>
+    <%= f.label :category %>
+    <%= f.select :category, options_for_select(Item.categories, prompt: "Please select your category from this dropdown") %>
+    <br>
+    <%= f.submit "submit" %>
+<% end %>
+
+<div id="itemResult">
+  <h2 id="itemName"></h2>
+  <span id="itemPrice"</span>
+  <p id="itemDescription"></p>
+  <p id="itemCategory"></p>
+</div>
+
+<script type ="text/javascript" charset="utf-8">
+$(function () {
+  $('form').submit(function(event) {
+    event.preventDefault();
+    var values = $(this).serialize();
+    var posting = $.post('/items', values);
+    posting.done(function(data) {
+      var item = data;
+
+      $("#itemName").text(item["name"]);
+      $("#itemPrice").text("$" + item["price"]);
+      $("#itemDescription").text(item["description"]);
+      $("#itemCategory").text(item["category"]);
+    });
+  });
+});
+</script>

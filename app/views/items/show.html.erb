@@ -1,0 +1,16 @@
+<h1 class="itemName"><strong> <%= @item.name %></strong></h1>
+<p class="itemDescription"><strong>Description:</strong> <%= @item.description %></p>
+<p class="itemPrice"><strong>Price:</strong> <%= number_to_currency(@item.price) %></p>
+<p class="itemCategory"><strong>Category:</strong> <%= @item.category %></p>
+
+
+<%= link_to "Load Deals", item_deals_path(@item), class: "load_deals" %>
+
+<div id="deals_div">
+  <ol>
+  </ol>
+</div>
+
+<%= render 'deal' %>
+
+

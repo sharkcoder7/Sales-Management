@@ -1,0 +1,8 @@
+<h2><strong><%= @user.name %>'s Profile</strong></h2>
+<p><strong> Sales </strong></p>
+
+<%= link_to "Load Deals", user_deals_path(@user), class: "load_deals" %>
+<div id="deals_div">
+  <ol>
+  </ol>
+</div>
